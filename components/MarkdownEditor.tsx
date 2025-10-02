@@ -10,7 +10,7 @@ import rehypeRaw from "rehype-raw"
 interface MarkdownEditorProps {
     content: string
     onContentChange: (value: string) => void
-    previewRef: React.RefObject<HTMLDivElement>
+    previewRef: React.RefObject<HTMLDivElement | null>
 }
 
 export default function MarkdownEditor({ content, onContentChange, previewRef }: MarkdownEditorProps) {
@@ -63,12 +63,9 @@ export default function MarkdownEditor({ content, onContentChange, previewRef }:
                         blockquote: ({ node, ...props }) => (
                             <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4 text-gray-700" {...props} />
                         ),
-                        code: ({ node, inline, ...props }) =>
-                            inline ? (
-                            <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono" {...props} />
-                            ) : (
-                            <code className="block bg-gray-100 p-4 rounded my-4 overflow-x-auto font-mono text-sm" {...props} />
-                            ),
+                        code: ({ node, ...props }) => (
+                            <code className="block bg-gray-100 p-4 rounded my-4 overflow-x-auto font-mono text-sm" {...props} /> //<code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono" {...props} />
+                        ),
                         pre: ({ node, ...props }) => <pre className="bg-gray-100 p-4 rounded my-4 overflow-x-auto" {...props} />,
                         a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
                         img: ({ node, ...props }) => <img className="max-w-full h-auto my-4 rounded" {...props} />,
